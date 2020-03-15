@@ -1,5 +1,5 @@
 [package]
-name = "rs-stock-portfolio"
+name = "rs_stock_portfolio"
 version = "0.1.0"
 authors = ["Torre <tostaylo1@gmail.com>"]
 edition = "2018"
@@ -12,6 +12,8 @@ reqwest = { version = "0.10", features = ["json","blocking"] }
 tokio = { version = "0.2", features = ["full"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
+diesel = { version = "1.0.0", features = ["postgres"] }
+dotenv = "0.9.0"
 
 [dependencies.rocket_contrib]
 version = "0.4.4"
