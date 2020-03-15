@@ -6,27 +6,23 @@ use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
 #[derive(Deserialize, Debug, Serialize)]
-struct Snapshot {
-  #[serde(rename = "Meta Data")]
-  meta_data: HashMap<String, String>,
-
-  #[serde(rename = "Time Series (Daily)")]
-  time_series_daily: HashMap<String, HashMap<String, String>>,
+struct GlobalQuote {
+  #[serde(rename = "Global Quote")]
+  global_quote: HashMap<String, String>,
 }
 
 #[get("/")]
-fn index() -> Json<Snapshot> {
+fn index() -> Json<GlobalQuote> {
   Json(req().unwrap())
 }
 
 #[tokio::main]
-async fn req() -> Result<Snapshot, Box<dyn std::error::Error>> {
-  let resp = reqwest::get(
-    "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&apikey=demo",
-  )
-  .await
-  .unwrap();
-  let json = resp.json::<Snapshot>().await.unwrap();
+async fn req() -> Result<GlobalQuote, Box<dyn std::error::Error>> {
+  let resp =
+    reqwest::get("https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=MSFT&apikey=demo")
+      .await
+      .unwrap();
+  let json = resp.json::<GlobalQuote>().await.unwrap();
   println!("{:#?} the response", json);
   Ok(json)
 }
